@@ -25,12 +25,22 @@ class StudentController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:students',
             'age' => 'required|integer',
+            'student_code' => 'required|unique:students',
+            'phone' => 'required|unique:students',
+            'gender' => 'required',
+            'address' => 'required',
+            'description' => 'nullable',
         ]);
 
         Student::create([
             'name' => $request->name,
             'email' => $request->email,
             'age' => $request->age,
+            'student_code' => $request->student_code,
+            'phone' => $request->phone,
+            'gender' => $request->gender,
+            'address' => $request->address,
+            'description' => $request->description,
         ]);
 
         return redirect()->route('students.index')
@@ -53,6 +63,11 @@ class StudentController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:students,email,' . $student->id,
             'age' => 'required|integer',
+            'student_code' => 'required|unique:students,student_code,' . $student->id,
+            'phone' => 'required|unique:students,phone,' . $student->id,
+            'gender' => 'required',
+            'address' => 'required',
+            'description' => 'nullable',
         ]);
 
         $student->update($request->all());
